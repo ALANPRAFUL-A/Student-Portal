@@ -1,0 +1,243 @@
+/* src/App.css */
+
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8; /* Changed body background color to a very light gray */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
+  background-attachment: fixed; /* Keep the image fixed when scrolling */
+  color: #333;
+  overflow-x: hidden; /* Prevent horizontal scrollbar from content shift */
+}
+
+/* Overall app container to manage layout */
+.appdiv1 {
+  display: flex;
+  flex-direction: column; /* Stacks top-navbar and app-content vertically */
+  min-height: 100vh;
+  position: relative; /* Needed for positioning overlay */
+}
+
+/* Top Navigation Bar */
+.top-navbar {
+  background-color: #2c3e50; /* Base color for blending - this will be overridden on desktop */
+  background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), /* Dark overlay for readability */
+                    url('https://images.unsplash.com/photo-1541339907198-e07566f97a4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Subtle campus image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; /* Ensure image doesn't repeat */
+  padding: 10px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Stronger shadow for depth */
+  position: fixed; /* Fixed at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's above other content */
+  display: flex;
+  justify-content: space-between; /* Space between hamburger and links */
+  align-items: center;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Hamburger Menu Button */
+.menu-button {
+  background: none;
+  border: none;
+  color: #e3e3e3;
+  font-size: 28px; /* Slightly larger for better touch target */
+  cursor: pointer;
+  padding: 5px 10px;
+  z-index: 1001; /* Ensure it's above the overlay and nav links when collapsed */
+  display: block; /* Always show the hamburger button on mobile */
+  transition: transform 0.2s ease-out; /* Smooth transition for button itself */
+}
+
+.menu-button:hover {
+  transform: scale(1.1); /* Slight scale on hover */
+}
+
+/* Main Navigation Links (This will now be your responsive nav) */
+.main-nav-links {
+  list-style-type: none; /* Removed from individual li, applied here */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Default to horizontal display for desktop */
+  align-items: center; /* Align items vertically in the center */
+}
+
+/* Styles for individual links */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Slightly reduced gap for tighter look */
+  color: #ffffff; /* Default link color to white (for dark backgrounds) */
+  text-decoration: none;
+  font-weight: 500; /* Medium font weight */
+  padding: 10px 15px; /* Consistent padding */
+  border-radius: 8px; /* Rounded corners for links */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease-out, box-shadow 0.3s ease; /* All transitions */
+  box-sizing: border-box; /* Include padding in width */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.links svg {
+  fill: #ffffff; /* Default icon color to white to match text */
+  transition: fill 0.3s ease;
+}
+
+/* Hover effects for links (general) */
+.links:hover {
+  color: #ffffff; /* White text on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Subtle shadow on hover */
+}
+
+.links:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+
+/* Styles for when main-nav-links act as a sidebar on smaller screens */
+@media (max-width: 768px) {
+  .main-nav-links {
+    background-color: #ffffff; /* Sidebar background color is white */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), /* Lighter overlay for readability */
+                      url('https://images.unsplash.com/photo-1541339907198-e07566f97a4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Subtle campus image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-direction: column; /* Stack links vertically */
+    position: fixed; /* Fixed position for sliding effect */
+    top: 0;
+    right: -250px; /* Hidden by default (off-screen to the right) */
+    width: 250px; /* Sidebar width */
+    height: 100%; /* Full height */
+    padding-top: 60px; /* Space for the top fixed navbar */
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5); /* Stronger shadow for sidebar */
+    transition: right 0.3s ease-in-out; /* Smooth slide transition */
+    z-index: 999; /* Below the top-navbar, above content */
+    overflow-y: auto;
+  }
+
+  .main-nav-links.open {
+    right: 0; /* Slide in from the right */
+  }
+
+  .main-nav-links li {
+    width: 100%; /* Make list items fill the sidebar width */
+  }
+
+  /* Specific link styles for white sidebar background */
+  .main-nav-links .links {
+    color: #333; /* Darker text color for white background */
+  }
+
+  .main-nav-links .links svg {
+    fill: #333; /* Darker icon color for white background */
+  }
+
+  .main-nav-links .links:hover {
+    background-color: #e0f2f7; /* Light blue hover for white sidebar */
+    transform: translateX(5px); /* Slide slightly to the right */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4); /* Blue shadow on hover */
+  }
+}
+
+/* Overlay for when sidebar is open on small screens */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998; /* Below top-navbar and sidebar, above app-content */
+  display: none; /* Hidden by default */
+}
+
+.overlay.visible {
+  display: block; /* Show when sidebar is open */
+}
+
+/* Main content area */
+.app-content {
+  flex-grow: 1; /* Allows content to take up remaining space */
+  padding-top: 60px; /* Add padding to account for the fixed top-navbar */
+  display: flex; /* Keep your existing display flex for content alignment */
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* Include padding in width */
+  width: 100%; /* Ensure it takes full width initially */
+}
+
+
+/* Responsive adjustments for larger screens (desktop) */
+@media (min-width: 769px) {
+  .top-navbar {
+    position: sticky; /* Sticky top bar for desktop */
+    top: 0;
+    justify-content: flex-start; /* Align nav items to start */
+    background-color: #ffffff; /* Changed top-navbar background color to white */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), /* Lighter overlay for readability */
+                      url('https://images.unsplash.com/photo-1541339907198-e07566f97a4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Subtle campus image */
+  }
+
+  .menu-button {
+    display: none; /* Hide hamburger on desktop */
+  }
+
+  .main-nav-links {
+    position: static; /* Not fixed sidebar on desktop */
+    flex-direction: row; /* Horizontal layout */
+    width: auto; /* Allow width to adjust to content */
+    height: auto; /* Allow height to adjust to content */
+    padding-top: 0; /* No top padding needed */
+    box-shadow: none; /* Remove shadow */
+    margin-left: auto; /* Push links to the right */
+    flex-wrap: wrap; /* Allow links to wrap if screen is too narrow */
+    justify-content: flex-end; /* Align links to the right if they wrap */
+  }
+
+  .main-nav-links li {
+    width: auto; /* Allow list items to adjust to content */
+  }
+
+  /* Specific link styles for white top-navbar background */
+  .main-nav-links .links {
+    color: #333; /* Darker text color for white background */
+  }
+
+  .main-nav-links .links svg {
+    fill: #333; /* Darker icon color for white background */
+  }
+
+  /* Specific hover for desktop top bar links */
+  .main-nav-links .links:hover {
+    background-color: #e0f2f7; /* Light blue hover for white top bar */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6); /* Blue shadow on hover */
+  }
+
+  .overlay {
+    display: none; /* Never show overlay on desktop */
+  }
+}
+
+/* Specific styles for logout link within the navigation */
+.links.logout-link {
+  color: #e74c3c; /* Red color for logout */
+}
+
+.links.logout-link:hover {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #ffcccc; /* Lighter red on hover */
+}
